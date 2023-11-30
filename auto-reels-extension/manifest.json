@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Auto Reels Extension",
+    "version": "1.0.1",
+    "description": "A simple extension to allow auto scrolling of youtube shorts",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "./scripts/background.js"
+    }
+}
