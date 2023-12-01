@@ -5,16 +5,18 @@ let autoReelsToggle = document.querySelector("#toggle")
 
 autoReelsToggle.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-    console.log(tab)
+    keyValue = await chrome.storage.local.get((tab.id).toString())
+    injectStatus = keyValue[tab.id]
     if (tab.url.split("/")[3] == 'shorts') {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["scripts/auto-reels-v2.js"]
-        })
-        chrome.storage.local.set({ [tab.id]: true })
-        statusElem.innerHTML = "Injected"
+        if (!injectStatus) {
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ["scripts/auto-reels-v2.js"]
+            }).then((r) => console.log(r))
+            chrome.storage.local.set({ [tab.id]: true })
+            statusElem.innerHTML = !injectStatus
+        }
     } else {
         alert("This is not youtube shorts")
     }
-
 })
