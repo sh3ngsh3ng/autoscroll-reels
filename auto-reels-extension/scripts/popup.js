@@ -15,6 +15,8 @@ autoReelsToggle.addEventListener("click", async () => {
             }).then((r) => console.log(r))
             chrome.storage.local.set({ [tab.id]: true })
             statusElem.innerHTML = !injectStatus
+        } else {
+            // toggle off here
         }
     } else {
         alert("This is not youtube shorts")
